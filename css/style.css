@@ -1,3 +1,13 @@
+body{
+	background: #bdc3c7;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	
+	
+}
+.main-content{
+	margin-top: 5px;
+}
 .table-front{
     background-color: green;
     height: 500px;
@@ -19,19 +29,34 @@
 .black-jack-text{
     position: absolute;
     bottom: 260px;
-    left:300px;
+    /* left:300px; */
     transform: rotateX(10deg);
-    font-size: 2em;
+	font-size: 1.5em;
+	color: #7F9C47;
 }
-h1 span{
-    font:26px Monaco, MonoSpace;
-    height: 200px;
-    position: absolute;
-    width: 20px;
-    left:0;
-    top: 0;
-    transform-origin: bottom center;
+.black-jack-rule{
+	position: absolute;
+    bottom: 300px;
+    /* left:300px; */
+    transform: rotateX(10deg);
+	font-size: 1.5em;
+	color: #7F9C47;
 }
-.char-1{
-    transform: rotate(6deg);
+.chips-wrapper{
+	border: 1px solid black;;
+}
+.chips{
+	background-color: white;
+	height: 100px;
+	/* border: 1px solid black; */
+	/* width: 50px; */
+	border-left: .5px solid black;
+}
+.actual-chips{
+	border: 1px solid black;
+	border-radius: 50%;
+}
+.player-count, .dealer-count{
+	transform: rotateX(10deg);
+	font-size: 2em;
 }
