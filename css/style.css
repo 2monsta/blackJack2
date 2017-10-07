@@ -1,0 +1,37 @@
+.table-front{
+    background-color: green;
+    height: 500px;
+    border-radius: 10% 10% 50% 50%;
+    border: 10px solid #dcdcdc;
+    transform: rotateX(45deg);
+    position: absolute;
+}
+.pers1000{
+    perspective: 1000px;
+    /*perspective-origin: 50% 10%;*/
+}
+.table-back{
+    height: 520px;
+    border-radius: 10% 10% 50% 50%;
+    border-bottom: 30px solid #dcdcdc;
+    transform: rotateX(45deg);
+}
+.black-jack-text{
+    position: absolute;
+    bottom: 260px;
+    left:300px;
+    transform: rotateX(10deg);
+    font-size: 2em;
+}
+h1 span{
+    font:26px Monaco, MonoSpace;
+    height: 200px;
+    position: absolute;
+    width: 20px;
+    left:0;
+    top: 0;
+    transform-origin: bottom center;
+}
+.char-1{
+    transform: rotate(6deg);
+}
