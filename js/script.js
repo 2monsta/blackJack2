@@ -6,8 +6,6 @@ $(document).ready(function(){
 	var betAmount = 0;
 	var letsBet = false;
 
-	$(".hidden-image").hide();
-
 
 	function createDeck(){
 		var newDeck = [];
@@ -38,14 +36,27 @@ $(document).ready(function(){
 		$(classSelector).html(image);
 	}
 
-	function placeCardImage(who, where, whatToPlace){
-		var classSelector = `.${who}-cards .card-${where}`;
-		var image = `<div class="image-load"><img id="image" src='images/cards/${whatToPlace}.png'/></div>`
-		// $(classSelector).delay(600).queue(function(){
-		// 	$(this).html(image);
-		// })
-		$(classSelector).html(image);
+	function calculateTotal(hand, who){
+		var handTotal = 0;
+		var thisCardsValue = 0;
+		for(let i = 0; i<hand.length; i++){
+			thisCardsValue = Number(hand[i].slice(0,-1));
+			if(thisCardsValue == 1){
+				if(handTotal > 10){
+					thisCardsValue = 1;
+				}else{
+					thisCardsValue = 11;
+				}
+			}else if(thisCardsValue>10){
+				thisCardsValue = 10;
+			}
+			handTotal +=thisCardsValue;
+		}
+		var classSelector = `.${who}-number`;
+		$(classSelector).html(handTotal);
+		return handTotal;
 	}
+
 	$(".deal-button").click((()=>{
 		theDeck = freshDeck.slice();
 		theDeck = shuffleDeck(theDeck);
@@ -57,14 +68,24 @@ $(document).ready(function(){
 		dealersHand.push(topCard);
 		topCard = theDeck.shift();
 		playersHand.push(topCard);
-		topCard = theDeck.shift();
-		dealersHand.push(topCard);
-
+		// topCard = theDeck.shift();
+		// dealersHand.push(topCard);
 		placeCard("player", 1, playersHand[0]);
 		placeCard("player", 2, playersHand[1]);
 		placeCard("dealer", 1, dealersHand[0]);
+		// placeCard("dealer", 2, dealersHand[1]);
+		placeCard("dealer", 2, "deck");
+		calculateTotal(playersHand, "player")
+		calculateTotal(dealersHand, "dealer");
+		topCard = theDeck.shift();
+		dealersHand.push(topCard);
 
-		// placeCardImage("dealer", 1, "deck");
+	}));
 
-	}))
+	$(".stand-button").click(()=>{
+		// $("dealer-cards card-2").hide();
+		placeCard("dealer", 2, dealersHand[1]);
+		calculateTotal(dealersHand, "dealer");
+
+	});
 });

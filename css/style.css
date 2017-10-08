@@ -85,9 +85,9 @@ img{
 	height: 100px;
 }
 
-.card{
+.card, .hidden-image{
 	padding: 0px;
 }
-/* #image{
-	position: absolute;
-} */
+#image{
+	display: none;
+}
