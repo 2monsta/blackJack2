@@ -14,7 +14,8 @@ body{
     border-radius: 10% 10% 50% 50%;
     border: 10px solid #dcdcdc;
     transform: rotateX(45deg);
-    position: absolute;
+	position: absolute;
+	margin-top: -50px;
 }
 .pers1000{
     perspective: 1000px;
@@ -24,7 +25,8 @@ body{
     height: 520px;
     border-radius: 10% 10% 50% 50%;
     border-bottom: 30px solid #dcdcdc;
-    transform: rotateX(45deg);
+	transform: rotateX(45deg);
+	margin-top: -50px;
 }
 .black-jack-text{
     position: absolute;
@@ -59,4 +61,18 @@ body{
 .player-count, .dealer-count{
 	transform: rotateX(10deg);
 	font-size: 2em;
+	margin-top: 20px;
+}
+.buttons{
+	margin-top: 25px;
+	outline: none;
+}
+.input-wrapper{
+	padding: 0;
+}
+.hands{
+	margin-top: 100px;
+}
+.card-1, .card-2{
+	border: 1px solid black;
 }
