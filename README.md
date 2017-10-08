@@ -1,0 +1,2 @@
+# BlackJack2
+##### This is a 2nd version blackjack game. It's made with jQuery, Bootstrap, and CSS. To be precise, I've made use of the perspective and transform property from CSS, using bootstrap to make the page responsive, and using jQuery to add dynamic to the page.
