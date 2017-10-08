@@ -56,6 +56,23 @@ $(document).ready(function(){
 		$(classSelector).html(handTotal);
 		return handTotal;
 	}
+	function checkWin(){
+		var playersTotal = calculateTotal(playersHand, "player");
+		var dealersTotal = calculateTotal(dealersHand, "dealer");
+		if(playersTotal > 21){
+			console.log("you lose");
+		}else if(playersTotal == 21 && playersHand.length == 2){
+			console.log("blackjack");
+		}else if(dealersTotal > 21){
+			console.log("dealer loses");
+		}else if(playersTotal < dealersTotal){
+			console.log("you lose to dealer");
+		}else if (playersTotal > dealersTotal){
+			console.log("you win");
+		}else{
+			console.log("TIE");
+		}
+	}
 
 	$(".deal-button").click((()=>{
 		theDeck = freshDeck.slice();
@@ -81,11 +98,28 @@ $(document).ready(function(){
 		dealersHand.push(topCard);
 
 	}));
+	
+	
+	$(".hit-button").click(()=>{
+		var topCard = theDeck.shift();
+		playersHand.push(topCard);
+		placeCard("player", playersHand.length, topCard)
+		calculateTotal(playersHand, "player");
+		// console.log(topCard);
+	});
+
 
 	$(".stand-button").click(()=>{
 		// $("dealer-cards card-2").hide();
 		placeCard("dealer", 2, dealersHand[1]);
 		calculateTotal(dealersHand, "dealer");
-
+		var dealerTotal = calculateTotal(dealersHand, "dealer");
+		while(dealerTotal<17){
+			var topCard = theDeck.shift();
+			dealersHand.push(topCard);
+			placeCard("dealer", dealersHand.length, topCard);
+			dealerTotal = calculateTotal(dealersHand, "dealer");
+		}
+		checkWin();
 	});
 });

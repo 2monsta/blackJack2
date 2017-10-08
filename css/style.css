@@ -5,6 +5,15 @@ body{
 	
 	
 }
+.blackjack{
+	width: 100%;
+	height: 100px;
+	margin-top: 30px;
+	box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+	transform: translatey(0px);
+	animation: float 3s ease-in-out infinite;
+	background: transparent;
+}
 .main-content{
 	margin-top: 5px;
 }
@@ -24,7 +33,7 @@ body{
 .table-back{
     height: 520px;
     border-radius: 10% 10% 50% 50%;
-    border-bottom: 30px solid #dcdcdc;
+    border-bottom: 20px solid black;
 	transform: rotateX(45deg);
 	margin-top: -50px;
 }
@@ -33,7 +42,7 @@ body{
     bottom: 260px;
     /* left:300px; */
     transform: rotateX(10deg);
-	font-size: 1.5em;
+	font-size: 1.3em;
 	color: #7F9C47;
 }
 .black-jack-rule{
@@ -41,7 +50,7 @@ body{
     bottom: 300px;
     /* left:300px; */
     transform: rotateX(10deg);
-	font-size: 1.5em;
+	font-size: 2em;
 	color: #7F9C47;
 }
 .chips-wrapper{
@@ -73,9 +82,9 @@ body{
 .hands{
 	margin-top: 100px;
 }
-.card-1, .card-2{
+/* .card-1, .card-2{
 	border: 1px solid black;
-}
+} */
 .player-hand-wrapper, .dealer-hand-wrapper{
 	margin-left: 100px;
 	transform: rotateX(10deg);
@@ -87,7 +96,28 @@ img{
 
 .card, .hidden-image{
 	padding: 0px;
+	border: 1px solid black;
 }
 #image{
 	display: none;
+}
+.row-two{
+	margin-left: 30px;
+	width: 31%;
+}
+
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
 }
