@@ -29,7 +29,7 @@ $(document).ready(function(){
 	}
 	function placeCard(who, where, whatToPlace){
 		var classSelector = `.${who}-cards .card-${where}`;
-		var image = `<div class="image-load"><img src='images/cards/${whatToPlace}.png'/></div>`
+		var image = `<div><img src='images/cards/${whatToPlace}.png'/></div>`
 		// $(classSelector).delay(600).queue(function(){
 		// 	$(this).html(image);
 		// })
@@ -61,16 +61,39 @@ $(document).ready(function(){
 		var dealersTotal = calculateTotal(dealersHand, "dealer");
 		if(playersTotal > 21){
 			console.log("you lose");
+			$(".black-jack-rule").html("You Lose!");
 		}else if(playersTotal == 21 && playersHand.length == 2){
 			console.log("blackjack");
+			$(".black-jack-rule").html("BlackJack");
 		}else if(dealersTotal > 21){
 			console.log("dealer loses");
+			$(".black-jack-rule").html("You Win!");
 		}else if(playersTotal < dealersTotal){
 			console.log("you lose to dealer");
+			$(".black-jack-rule").html("You Lose!");
 		}else if (playersTotal > dealersTotal){
 			console.log("you win");
+			$(".black-jack-rule").html("You Win!");
 		}else{
 			console.log("TIE");
+			$(".black-jack-rule").html("Tie, try again!");
+		}
+	}
+	function bet(){
+		var betValue = Number($(".bet-amount").val());
+		var currentValue = Number($(".player-amount").html());
+		if(!letsBet){
+			// continue;
+		}else{
+			if(betValue == 0){
+				$(".black-jack-rule").html("You must enter an amount to bet");
+			}else{
+				betAmount += betValue;
+				myValue = currentValue - betValue;
+				$(".bet-pot").html(betAmount);
+				$(".bet-amount").val("");
+				$(".player-amount").html(myValue);
+			}
 		}
 	}
 
@@ -96,7 +119,7 @@ $(document).ready(function(){
 		calculateTotal(dealersHand, "dealer");
 		topCard = theDeck.shift();
 		dealersHand.push(topCard);
-
+		letsBet = true;
 	}));
 	
 	
@@ -121,5 +144,10 @@ $(document).ready(function(){
 			dealerTotal = calculateTotal(dealersHand, "dealer");
 		}
 		checkWin();
+		letsBet = false;
 	});
+
+	$(".bet-button").click(()=>{
+		bet();
+	})
 });
