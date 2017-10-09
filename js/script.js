@@ -3,10 +3,10 @@ $(document).ready(function(){
 	var dealersHand = [];
 	const freshDeck = createDeck();
 	var theDeck;
-	var betAmount = 0;
 	var letsBet = false;
 	$(".row-two-buttons").hide();
 	$(".reset-button-wrapper").hide();
+	
 
 	function createDeck(){
 		var newDeck = [];
@@ -93,17 +93,22 @@ $(document).ready(function(){
 	function bet(){
 		var betValue = Number($(".bet-amount").val());
 		var currentValue = Number($(".player-amount").html());
+		var betAmount = 0;
 		if(!letsBet){
 			// continue;
 		}else{
 			if(betValue == 0){
 				$(".black-jack-rule").html("You must enter an amount to bet");
 			}else{
-				betAmount += betValue;
-				myValue = currentValue - betValue;
-				$(".bet-pot").html(betAmount);
-				$(".bet-amount").val("");
-				$(".player-amount").html(myValue);
+				if(betValue > currentValue){
+					$(".black-jack-rule").html("You Can't Enter More Than You Have!!");
+				}else{
+					betAmount += betValue;
+					var myValue = currentValue - betValue;
+					$(".bet-pot").html(betAmount);
+					$(".bet-amount").val("");
+					$(".player-amount").html(myValue);
+				}
 			}
 		}
 	}
@@ -119,12 +124,11 @@ $(document).ready(function(){
 		dealersHand.push(topCard);
 		topCard = theDeck.shift();
 		playersHand.push(topCard);
-		// topCard = theDeck.shift();
-		// dealersHand.push(topCard);
+
+
 		placeCard("player", 1, playersHand[0]);
 		placeCard("player", 2, playersHand[1]);
 		placeCard("dealer", 1, dealersHand[0]);
-		// placeCard("dealer", 2, dealersHand[1]);
 		placeCard("dealer", 2, "deck");
 		calculateTotal(playersHand, "player")
 		calculateTotal(dealersHand, "dealer");
@@ -168,4 +172,22 @@ $(document).ready(function(){
 	$(".bet-button").click(()=>{
 		bet();
 	})
+
+	$(".double-down-button").click(()=>{
+		var currentPot = $(".bet-pot").html();
+		var doubleAmount = Number(currentPot) * 2;
+		var playerAmount = $(".player-amount").html();
+		// $(".bet-pot").html(doubleAmount);
+		// console.log(playerAmount);
+		// var doubleDownMoney = playerAmount - doubleAmount;
+		// $(".player-amount").html(doubleDownMoney);
+		if(doubleAmount > playerAmount){
+			$(".black-jack-rule").html("You Cannot Double Down More");
+		}else{
+			$(".bet-pot").html(doubleAmount);
+			// console.log(playerAmount);
+			var doubleDownMoney = playerAmount - currentPot;
+			$(".player-amount").html(doubleDownMoney);
+		}
+	});
 });
