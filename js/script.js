@@ -5,6 +5,7 @@ $(document).ready(function(){
 	var theDeck;
 	var letsBet = false;
 	var reset = false;
+	var betAmount = 0;
 	$(".row-two-buttons").hide();
 	$(".reset-button-wrapper").hide();
 	var card = 3;
@@ -95,7 +96,6 @@ $(document).ready(function(){
 	function bet(){
 		var betValue = Number($(".bet-amount").val());
 		var currentValue = Number($(".player-amount").html());
-		var betAmount = 0;
 		if(!letsBet){
 			// continue;
 		}else{
@@ -113,6 +113,7 @@ $(document).ready(function(){
 				}
 			}
 		}
+
 	}
 
 	$(".deal-button").click((()=>{
@@ -228,7 +229,28 @@ $(document).ready(function(){
 		}
 	});
 
+	$(".surrender-button").click(()=>{
+		playersHand =[];
+		dealersHand = [];
+		var currentPot = $(".bet-pot").html();
+		var halfAmount = Number(currentPot) /2;
+		var playerAmount = Number($(".player-amount").html());
+		var halfOfMoney = playerAmount + halfAmount;
+		$(".player-amount").html(halfOfMoney);
+		if(reset){
+			$(".black-jack-rule").html("Dealer Must Hit Under 17");
+			$(".card").html("-");
+			$(".row-two-buttons").hide("slow");
+			$(".reset-button-wrapper").hide("slow");
+		}
+		card = 3;
+		$(".player-number").html("0");
+		$(".dealer-number").html("0");
+		$(".bet-pot").html("0");
+		betAmount =0;
+	});
 
+	
 	$(".reset-button").click(()=>{
 		playersHand =[];
 		dealersHand = [];
@@ -241,6 +263,7 @@ $(document).ready(function(){
 		card = 3;
 		$(".player-number").html("0");
 		$(".dealer-number").html("0");
+		betAmount = 0;
 	});
 
 });
