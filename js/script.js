@@ -126,10 +126,22 @@ $(document).ready(function(){
 		playersHand.push(topCard);
 
 
-		placeCard("player", 1, playersHand[0]);
-		placeCard("player", 2, playersHand[1]);
-		placeCard("dealer", 1, dealersHand[0]);
+
+		placeCard("player", 1, "deck");
+		placeCard("player", 2, "deck");
 		placeCard("dealer", 2, "deck");
+		$(".player-cards .card").fadeOut(1000, function(){
+			placeCard("player", 1, playersHand[0]);
+			placeCard("player", 2, playersHand[1]);
+			placeCard("dealer", 1, dealersHand[0]);
+		});
+		$(".player-cards .card").fadeIn(2000, function(){
+			placeCard("player", 1, playersHand[0]);
+			placeCard("player", 2, playersHand[1]);
+			placeCard("dealer", 1, dealersHand[0]);
+		});
+		placeCard("dealer", 1, dealersHand[0]);
+
 		calculateTotal(playersHand, "player")
 		calculateTotal(dealersHand, "dealer");
 		topCard = theDeck.shift();
