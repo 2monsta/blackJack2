@@ -4,8 +4,10 @@ $(document).ready(function(){
 	const freshDeck = createDeck();
 	var theDeck;
 	var letsBet = false;
+	var reset = false;
 	$(".row-two-buttons").hide();
 	$(".reset-button-wrapper").hide();
+	var card = 3;
 	
 
 	function createDeck(){
@@ -139,6 +141,7 @@ $(document).ready(function(){
 			placeCard("player", 1, playersHand[0]);
 			placeCard("player", 2, playersHand[1]);
 			placeCard("dealer", 1, dealersHand[0]);
+			reset = true;
 		});
 		placeCard("dealer", 1, dealersHand[0]);
 
@@ -155,9 +158,31 @@ $(document).ready(function(){
 	
 	
 	$(".hit-button").click(()=>{
-		var topCard = theDeck.shift();
-		playersHand.push(topCard);
-		placeCard("player", playersHand.length, topCard)
+		// var topCard = theDeck.shift();
+		// playersHand.push(topCard);
+		// placeCard("player", playersHand.length, "deck");
+		if(card ==3){
+			var topCard = theDeck.shift();
+			playersHand.push(topCard);
+			placeCard("player", playersHand.length, "deck");
+			$(".player-cards .card-3").fadeOut(1000, function(){
+				placeCard("player", playersHand.length, topCard);
+			});
+			$(".player-cards .card-3").fadeIn(1000, function(){
+				placeCard("player", playersHand.length, topCard)
+			});
+			card++;
+		}else if(card ==4){
+			var topCard = theDeck.shift();
+			playersHand.push(topCard);
+			placeCard("player", playersHand.length, "deck");
+			$(".player-cards .card-4").fadeOut(1000, function(){
+				placeCard("player", playersHand.length, topCard);
+			});
+			$(".player-cards .card-4").fadeIn(1000, function(){
+				placeCard("player", playersHand.length, topCard)
+			});
+		}
 		calculateTotal(playersHand, "player");
 		// console.log(topCard);
 	});
@@ -202,4 +227,20 @@ $(document).ready(function(){
 			$(".player-amount").html(doubleDownMoney);
 		}
 	});
+
+
+	$(".reset-button").click(()=>{
+		playersHand =[];
+		dealersHand = [];
+		if(reset){
+			$(".black-jack-rule").html("Dealer Must Hit Under 17");
+			$(".card").html("-");
+			$(".row-two-buttons").hide("slow");
+			$(".reset-button-wrapper").hide("slow");
+		}
+		card = 3;
+		$(".player-number").html("0");
+		$(".dealer-number").html("0");
+	});
+
 });

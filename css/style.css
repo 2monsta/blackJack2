@@ -136,9 +136,8 @@ img{
 		transform: translatey(0px);
 	}
 }
-
-@keyframes move {
+/* @keyframes move {
 	from {margin: 0;}
 	to{margin-top:100px;}
 	to{margin-left: -100px;}
-}
+} */
