@@ -5,7 +5,8 @@ $(document).ready(function(){
 	var theDeck;
 	var betAmount = 0;
 	var letsBet = false;
-
+	$(".row-two-buttons").hide();
+	$(".reset-button-wrapper").hide();
 
 	function createDeck(){
 		var newDeck = [];
@@ -130,6 +131,10 @@ $(document).ready(function(){
 		topCard = theDeck.shift();
 		dealersHand.push(topCard);
 		letsBet = true;
+		$(".hit-button").prop("disabled", false);
+		$(".row-two-buttons").show("slow");
+		$(".reset-button-wrapper").show("slow");
+
 	}));
 	
 	
@@ -155,6 +160,9 @@ $(document).ready(function(){
 		}
 		checkWin();
 		letsBet = false;
+		$(".hit-button").prop("disabled", true);
+		$(".row-two-buttons").hide("slow");
+		// $(".reset-button-wrapper").show("slow");
 	});
 
 	$(".bet-button").click(()=>{

@@ -2,8 +2,6 @@ body{
 	background: #bdc3c7;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	
-	
 }
 .blackjack{
 	width: 100%;
@@ -102,8 +100,10 @@ img{
 }
 .deck{
 	position: absolute;
-	animation: move;
-	animation-duration: 4s;
+}
+.card-image{
+	position: relative;
+	bottom: 61px;
 }
 .bet-pot-wrapper{
 	font-size: 2em;
@@ -115,8 +115,12 @@ img{
 .header-wrapper{
 	margin: auto;
 }
-
-
+.row-two-buttons{
+	margin-top: 15px;
+}
+.reset-button-wrapper{
+	margin-top: 15px;
+}
 
 @keyframes float {
 	0% {
