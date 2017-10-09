@@ -59,21 +59,31 @@ $(document).ready(function(){
 	function checkWin(){
 		var playersTotal = calculateTotal(playersHand, "player");
 		var dealersTotal = calculateTotal(dealersHand, "dealer");
+		var betValue = Number($(".bet-pot").html()) * 2;
+		var playersTotalAgain = Number($(".player-amount").html()) + betValue; 
 		if(playersTotal > 21){
 			console.log("you lose");
 			$(".black-jack-rule").html("You Lose!");
+			$(".bet-pot").html("0");
 		}else if(playersTotal == 21 && playersHand.length == 2){
 			console.log("blackjack");
 			$(".black-jack-rule").html("BlackJack");
+			$(".player-amount").html(playersTotalAgain);
+			$(".bet-pot").html("0");
 		}else if(dealersTotal > 21){
 			console.log("dealer loses");
 			$(".black-jack-rule").html("You Win!");
+			$(".player-amount").html(playersTotalAgain);
+			$(".bet-pot").html("0");
 		}else if(playersTotal < dealersTotal){
 			console.log("you lose to dealer");
 			$(".black-jack-rule").html("You Lose!");
+			$(".bet-pot").html("0");
 		}else if (playersTotal > dealersTotal){
 			console.log("you win");
 			$(".black-jack-rule").html("You Win!");
+			$(".player-amount").html(playersTotalAgain);
+			$(".bet-pot").html("0");
 		}else{
 			console.log("TIE");
 			$(".black-jack-rule").html("Tie, try again!");

@@ -53,20 +53,7 @@ body{
 	font-size: 2em;
 	color: #7F9C47;
 }
-.chips-wrapper{
-	border: 1px solid black;;
-}
-.chips{
-	background-color: white;
-	height: 100px;
-	/* border: 1px solid black; */
-	/* width: 50px; */
-	border-left: .5px solid black;
-}
-.actual-chips{
-	border: 1px solid black;
-	border-radius: 50%;
-}
+
 .player-count, .dealer-count{
 	transform: rotateX(10deg);
 	font-size: 2em;
@@ -99,7 +86,7 @@ img{
 
 .card{
 	padding: 0px;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 /* #image{
 	display: none;
@@ -122,6 +109,11 @@ img{
 	font-size: 2em;
 	color: #f66;
 	margin-top: 100px;
+	position: absolute;
+	bottom: 100px;
+}
+.header-wrapper{
+	margin: auto;
 }
 
 
