@@ -1,4 +1,10 @@
+
+//TODO: work on stand button
+
+
+
 $(document).ready(function(){
+
 	var playersHand = [];
 	var dealersHand = [];
 	const freshDeck = createDeck();
@@ -130,21 +136,40 @@ $(document).ready(function(){
 
 
 
-		placeCard("player", 1, "deck");
-		placeCard("player", 2, "deck");
-		placeCard("dealer", 2, "deck");
-		$(".player-cards .card").fadeOut(1000, function(){
-			placeCard("player", 1, playersHand[0]);
-			placeCard("player", 2, playersHand[1]);
+		// placeCard("player", 1, "deck");
+		// placeCard("player", 2, "deck");
+		// placeCard("dealer", 2, "deck");
+		// $(".player-cards .card").fadeOut(1000, function(){
+		// 	placeCard("player", 1, playersHand[0]);
+		// 	placeCard("player", 2, playersHand[1]);
+		// 	placeCard("dealer", 1, dealersHand[0]);
+		// });
+		// $(".player-cards .card").fadeIn(2000, function(){
+		// 	placeCard("player", 1, playersHand[0]);
+		// 	placeCard("player", 2, playersHand[1]);
+		// 	placeCard("dealer", 1, dealersHand[0]);
+		// 	reset = true;
+		// });
+		// placeCard("dealer", 1, dealersHand[0]);
+
+		
+		$(".player-cards .card-1").addClass("dealt1");
+		placeCard("player", 1, playersHand[0]);
+		setTimeout(function() {
+			$(".dealer-cards .card-1").addClass("dealerDealt1");
 			placeCard("dealer", 1, dealersHand[0]);
-		});
-		$(".player-cards .card").fadeIn(2000, function(){
-			placeCard("player", 1, playersHand[0]);
-			placeCard("player", 2, playersHand[1]);
-			placeCard("dealer", 1, dealersHand[0]);
-			reset = true;
-		});
-		placeCard("dealer", 1, dealersHand[0]);
+		}, 800);
+		setTimeout(function(){
+			$(".player-cards .card-2").addClass("dealt2");
+			placeCard("player",2 ,playersHand[1]);
+		}, 1600);
+		setTimeout(function() {
+			$(".dealer-cards .card-2").addClass("dealerDealt2");
+			placeCard("dealer", 2, "deck");
+			setTimeout(function() {
+				$(".dealer-cards .card-2").removeClass("dealerDealt2");
+			}, 2400);
+		}, 2400);
 
 		calculateTotal(playersHand, "player")
 		calculateTotal(dealersHand, "dealer");
@@ -168,10 +193,7 @@ $(document).ready(function(){
 			placeCard("player", playersHand.length, "deck");
 			$(".player-cards .card-3").fadeOut(1000, function(){
 				placeCard("player", playersHand.length, topCard);
-			});
-			$(".player-cards .card-3").fadeIn(1000, function(){
-				placeCard("player", playersHand.length, topCard)
-			});
+			}).fadeIn(1000);
 			card++;
 		}else if(card ==4){
 			var topCard = theDeck.shift();
@@ -179,10 +201,7 @@ $(document).ready(function(){
 			placeCard("player", playersHand.length, "deck");
 			$(".player-cards .card-4").fadeOut(1000, function(){
 				placeCard("player", playersHand.length, topCard);
-			});
-			$(".player-cards .card-4").fadeIn(1000, function(){
-				placeCard("player", playersHand.length, topCard)
-			});
+			}).fadeIn(1000);
 		}
 		calculateTotal(playersHand, "player");
 		// console.log(topCard);
@@ -190,8 +209,17 @@ $(document).ready(function(){
 
 
 	$(".stand-button").click(()=>{
-		// $("dealer-cards card-2").hide();
-		placeCard("dealer", 2, dealersHand[1]);
+		// // $(".dealer-cards .card-2").addClass("dDealtCard2");
+		// placeCard("dealer", 2, dealersHand[1]);
+
+		// var topCard = theDeck.shift();
+		// dealersHand.push(topCard);
+		// placeCard("dealer", dealersHand.length, topCard);
+		// $(".dealer-cards .card-3").fadeOut(1000, function(){
+		// 	placeCard("dealer", dealersHand.length, topCard);
+		// }).fadeIn(1000);
+
+
 		calculateTotal(dealersHand, "dealer");
 		var dealerTotal = calculateTotal(dealersHand, "dealer");
 		while(dealerTotal<17){

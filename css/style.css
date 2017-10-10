@@ -141,3 +141,84 @@ img{
 	to{margin-top:100px;}
 	to{margin-left: -100px;}
 } */
+.dealt1{
+	animation: dealCard1 .6s;
+}
+.dealt2{
+	animation: dealCard2 .6s;
+}
+.dealt3{
+	animation: dealCard3 .6s;
+}
+.dealt4{
+	animation: dealCard4 .6s;
+}
+.dealt5{
+	animation: dealCard5 .6s;
+}
+
+.dealerDealt1{
+	animation: dDealCard1 .6s;
+}
+.dealerDealt2{
+	animation: dDealCard2 .6s;
+}
+.dealerDealt3{
+	animation: dDealCard3 .6s;
+}
+.dealerDealt4{
+	animation: dDealCard4 .6s;
+}
+.dealerDealt5{
+	animation: dDealCard5 .6s;
+}
+
+@keyframes dealCard1{
+	0%{transform: translate(350px,-200px)}
+	100%{}
+}
+
+@keyframes dealCard2{
+	0%{transform: translate(350px,-200px)}
+	100%{}
+}
+
+@keyframes dealCard3{
+	0%{transform: translate(330px,-200px)}
+	100%{}
+}
+
+@keyframes dealCard4{
+	0%{transform: translate(330px,-150px)}
+	100%{}
+}
+
+@keyframes dealCard5{
+	0%{transform: translate(330px,-100px)}
+	100%{}
+}
+
+@keyframes dDealCard1{
+	0%{transform: translate(-350px, -200px)}
+	100%{}
+}
+
+@keyframes dDealCard2{
+	0%{transform: translate(-350px,-200px)}
+	100%{}
+}
+
+@keyframes dDealCard3{
+	0%{transform: translate(460px,0px)}
+	100%{}
+}
+
+@keyframes dDealCard4{
+	0%{transform: translate(460px,0px)}
+	100%{}
+}
+
+@keyframes dDealCard5{
+	0%{transform: translate(460px,0px)}
+	100%{}
+}
