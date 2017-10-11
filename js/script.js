@@ -19,7 +19,8 @@ $(document).ready(function(){
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip();
 	});
-	$('#myModal').modal('show')
+	$('#myModal').modal('show');
+	$('.collapse').collapse("hide");
 	
 
 	function createDeck(){
@@ -126,11 +127,11 @@ $(document).ready(function(){
 		}
 
 	}
-	$(".submit-name").click(()=>{
+	$(".modal-form").submit(()=>{
 		$('#myModal').modal('hide');
 		var valueName = $(".player-name").val();
 		$(".name").html(valueName);
-	})
+	});
 	$(".rule-book").click(()=>{
 		$('#myModal').modal('show');
 	})
@@ -189,8 +190,8 @@ $(document).ready(function(){
 		dealersHand.push(topCard);
 		letsBet = true;
 		$(".hit-button").prop("disabled", false);
-		$(".row-two-buttons").show("slow");
-		$(".reset-button-wrapper").show("slow");
+		$(".row-two-buttons").show(100);
+		$(".reset-button-wrapper").show(100);
 
 	}));
 	
@@ -252,7 +253,7 @@ $(document).ready(function(){
 		checkWin();
 		letsBet = false;
 		$(".hit-button").prop("disabled", true);
-		$(".row-two-buttons").hide("slow");
+		$(".row-two-buttons").hide(100);
 		// $(".reset-button-wrapper").show("slow");
 	
 	});
@@ -291,8 +292,8 @@ $(document).ready(function(){
 		if(reset){
 			$(".black-jack-rule").html("Dealer Must Hit Under 17");
 			$(".card").html("-");
-			$(".row-two-buttons").hide("slow");
-			$(".reset-button-wrapper").hide("slow");
+			$(".row-two-buttons").hide(100);
+			$(".reset-button-wrapper").hide(100);
 		}
 		card = 3;
 		$(".player-number").html("0");
@@ -308,8 +309,8 @@ $(document).ready(function(){
 		if(reset){
 			$(".black-jack-rule").html("Dealer Must Hit Under 17");
 			$(".card").html("-");
-			$(".row-two-buttons").hide("slow");
-			$(".reset-button-wrapper").hide("slow");
+			$(".row-two-buttons").hide(100);
+			$(".reset-button-wrapper").hide(100);
 			$(".player-cards .card-1").removeClass("dealt1");
 			$(".player-cards .card-2").removeClass("dealt2");
 			$(".dealer-cards .card-1").removeClass("dealerDealt1");

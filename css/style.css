@@ -15,6 +15,11 @@ body{
 .main-content{
 	margin-top: 5px;
 }
+.blackjack-logo{
+	width: 80%;
+	height: 50px;
+	margin-top: -16px;
+}
 .name{
 	margin-top: 0;
 }
