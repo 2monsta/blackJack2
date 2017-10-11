@@ -15,6 +15,9 @@ body{
 .main-content{
 	margin-top: 5px;
 }
+.name{
+	margin-top: 0;
+}
 .table-front{
     background-color: green;
     height: 500px;
@@ -159,27 +162,11 @@ img{
 
 @keyframes dealCard1{
 	0%{transform: translate(350px,-200px)}
-	50%{transform: rotateY(90deg)}
-	100%{transform: rotateY(180deg)}
+	100%{}
 }
 
 @keyframes dealCard2{
 	0%{transform: translate(350px,-200px)}
-	100%{}
-}
-
-@keyframes dealCard3{
-	0%{transform: translate(330px,-200px)}
-	100%{}
-}
-
-@keyframes dealCard4{
-	0%{transform: translate(330px,-150px)}
-	100%{}
-}
-
-@keyframes dealCard5{
-	0%{transform: translate(330px,-100px)}
 	100%{}
 }
 
@@ -190,20 +177,5 @@ img{
 
 @keyframes dDealCard2{
 	0%{transform: translate(-350px,-200px)}
-	100%{}
-}
-
-@keyframes dDealCard3{
-	0%{transform: translate(460px,0px)}
-	100%{}
-}
-
-@keyframes dDealCard4{
-	0%{transform: translate(460px,0px)}
-	100%{}
-}
-
-@keyframes dDealCard5{
-	0%{transform: translate(460px,0px)}
 	100%{}
 }

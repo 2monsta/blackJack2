@@ -1,11 +1,11 @@
 
 //TODO: work on stand button
 //TODO: work on flip option
+//TODO: work on double down function
 
 
 
 $(document).ready(function(){
-
 	var playersHand = [];
 	var dealersHand = [];
 	const freshDeck = createDeck();
@@ -13,9 +13,13 @@ $(document).ready(function(){
 	var letsBet = false;
 	var reset = false;
 	var betAmount = 0;
+	var card = 3;
 	$(".row-two-buttons").hide();
 	$(".reset-button-wrapper").hide();
-	var card = 3;
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+	$('#myModal').modal('show')
 	
 
 	function createDeck(){
@@ -122,7 +126,14 @@ $(document).ready(function(){
 		}
 
 	}
-
+	$(".submit-name").click(()=>{
+		$('#myModal').modal('hide');
+		var valueName = $(".player-name").val();
+		$(".name").html(valueName);
+	})
+	$(".rule-book").click(()=>{
+		$('#myModal').modal('show');
+	})
 	$(".deal-button").click((()=>{
 		theDeck = freshDeck.slice();
 		theDeck = shuffleDeck(theDeck);
