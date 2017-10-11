@@ -221,22 +221,32 @@ $(document).ready(function(){
 		// $(".dealer-cards .card-3").fadeOut(1000, function(){
 		// 	placeCard("dealer", dealersHand.length, topCard);
 		// }).fadeIn(1000);
+		// $(".dealer-cards .card-2").html("");
 
-
-		calculateTotal(dealersHand, "dealer");
+		// calculateTotal(dealersHand, "dealer");
 		var dealerTotal = calculateTotal(dealersHand, "dealer");
 		while(dealerTotal<17){
 			// var topCard = theDeck.shift();
 			// dealersHand.push(topCard);
 			// placeCard("dealer", dealersHand.length, topCard);
 			// dealerTotal = calculateTotal(dealersHand, "dealer");
+
 			var topCard = theDeck.shift();
 			dealersHand.push(topCard);
-			placeCard("dealer", dealersHand.length, topCard);
-			$(".dealer-cards .card-2").fadeOut(1000, function(){
-				placeCard("dealer", dealersHand.length, topCard);
-			}).fadeIn(1000);
-	
+			console.log(dealersHand);
+		
+			$(".dealer-cards .card-2").fadeOut(1000,function(){
+				placeCard("dealer", dealersHand.length -1, dealersHand[1]);
+				console.log(dealersHand.length);
+				// dealerTotal = calculateTotal(dealersHand, "dealer");
+			}).fadeIn(1000, function(){
+				dealerTotal = calculateTotal(dealersHand, "dealer");
+				$(".dealer-cards .card-3").fadeOut(1000,function(){
+					placeCard("dealer", dealersHand.length, topCard);
+					// dealerTotal = calculateTotal(dealersHand, "dealer");
+				}).fadeIn(1000);
+			});
+			dealerTotal = calculateTotal(dealersHand, "dealer");
 		}
 		checkWin();
 		letsBet = false;
