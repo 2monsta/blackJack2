@@ -210,36 +210,42 @@ $(document).ready(function(){
 
 
 	$(".stand-button").click(()=>{
+		placeCard("dealer", 2, dealersHand[1]);
 		var dealerTotal = calculateTotal(dealersHand, "dealer");
-		// while(dealerTotal<17){
-			// var topCard = theDeck.shift();
-			// dealersHand.push(topCard);
-			// placeCard("dealer", dealersHand.length, topCard);
-			// dealerTotal = calculateTotal(dealersHand, "dealer");
-
+		while(dealerTotal<17){
 			var topCard = theDeck.shift();
 			dealersHand.push(topCard);
-			console.log(dealersHand);
+			placeCard("dealer", dealersHand.length, topCard);
+			// dealerTotal = calculateTotal(dealersHand, "dealer");
+		// if(dealerTotal<17){
+
 		
-			$(".dealer-cards .card-2").fadeOut(1000,function(){
-				placeCard("dealer", dealersHand.length -1, dealersHand[1]);
-				console.log(dealersHand.length);
-				// dealerTotal = calculateTotal(dealersHand, "dealer");
-			}).fadeIn(1000, function(){
-				dealerTotal = calculateTotal(dealersHand, "dealer");
-				$(".dealer-cards .card-3").fadeOut(500,function(){
-					placeCard("dealer", dealersHand.length, topCard);
-					// dealerTotal = calculateTotal(dealersHand, "dealer");
-				}).fadeIn(1000);
-			});
+			// var topCard = theDeck.shift();
+			// dealersHand.push(topCard);
+			// console.log(dealersHand);
+		
+			// $(".dealer-cards .card-2").fadeOut(1000,function(){
+			// 	placeCard("dealer", dealersHand.length -1, dealersHand[1]);
+			// 	console.log(dealersHand.length);
+			// }).fadeIn(1000, function(){
+			// 	$(".dealer-cards .card-3").fadeOut(500,function(){
+			// 		placeCard("dealer", dealersHand.length, topCard);
+			// 	}).fadeIn(1000);
+			// });
+			// setTimeout(function() {
+			// 	dealerTotal = calculateTotal(dealersHand, "dealer");
+			// }, 1000);
 			dealerTotal = calculateTotal(dealersHand, "dealer");
 		// }
+		}
 		checkWin();
 		letsBet = false;
 		$(".hit-button").prop("disabled", true);
 		$(".row-two-buttons").hide("slow");
 		// $(".reset-button-wrapper").show("slow");
+	
 	});
+
 
 	$(".bet-button").click(()=>{
 		bet();
@@ -295,14 +301,8 @@ $(document).ready(function(){
 			$(".reset-button-wrapper").hide("slow");
 			$(".player-cards .card-1").removeClass("dealt1");
 			$(".player-cards .card-2").removeClass("dealt2");
-			$(".player-cards .card-3").removeClass("dealt3");
-			$(".player-cards .card-4").removeClass("dealt4");
-			$(".player-cards .card-5").removeClass("dealt5");
 			$(".dealer-cards .card-1").removeClass("dealerDealt1");
 			$(".dealer-cards .card-2").removeClass("dealerDealt2");
-			$(".dealer-cards .card-3").removeClass("dealerDealt3");
-			$(".dealer-cards .card-4").removeClass("dealerDealt4");
-			$(".dealer-cards .card-5").removeClass("dealerDealt5");
 		}
 		card = 3;
 		$(".player-number").html("0");

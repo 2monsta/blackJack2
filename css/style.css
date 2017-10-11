@@ -147,15 +147,7 @@ img{
 .dealt2{
 	animation: dealCard2 .6s;
 }
-.dealt3{
-	animation: dealCard3 .6s;
-}
-.dealt4{
-	animation: dealCard4 .6s;
-}
-.dealt5{
-	animation: dealCard5 .6s;
-}
+
 
 .dealerDealt1{
 	animation: dDealCard1 .6s;
@@ -163,15 +155,7 @@ img{
 .dealerDealt2{
 	animation: dDealCard2 .6s;
 }
-.dealerDealt3{
-	animation: dDealCard3 .6s;
-}
-.dealerDealt4{
-	animation: dDealCard4 .6s;
-}
-.dealerDealt5{
-	animation: dDealCard5 .6s;
-}
+
 
 @keyframes dealCard1{
 	0%{transform: translate(350px,-200px)}
