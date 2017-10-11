@@ -1,5 +1,6 @@
 
 //TODO: work on stand button
+//TODO: work on flip option
 
 
 
@@ -148,7 +149,7 @@ $(document).ready(function(){
 		// 	placeCard("player", 1, playersHand[0]);
 		// 	placeCard("player", 2, playersHand[1]);
 		// 	placeCard("dealer", 1, dealersHand[0]);
-		// 	reset = true;
+		reset = true;
 		// });
 		// placeCard("dealer", 1, dealersHand[0]);
 
@@ -209,7 +210,9 @@ $(document).ready(function(){
 
 
 	$(".stand-button").click(()=>{
-		// // $(".dealer-cards .card-2").addClass("dDealtCard2");
+		// $(".dealer-cards .card-2").html("-");
+		// $(".dealer-cards .card-2").removeClass("dDealtCard2");
+		// $(".dealer-cards .card-2").addClass("dDealtCard2");
 		// placeCard("dealer", 2, dealersHand[1]);
 
 		// var topCard = theDeck.shift();
@@ -223,10 +226,17 @@ $(document).ready(function(){
 		calculateTotal(dealersHand, "dealer");
 		var dealerTotal = calculateTotal(dealersHand, "dealer");
 		while(dealerTotal<17){
+			// var topCard = theDeck.shift();
+			// dealersHand.push(topCard);
+			// placeCard("dealer", dealersHand.length, topCard);
+			// dealerTotal = calculateTotal(dealersHand, "dealer");
 			var topCard = theDeck.shift();
 			dealersHand.push(topCard);
 			placeCard("dealer", dealersHand.length, topCard);
-			dealerTotal = calculateTotal(dealersHand, "dealer");
+			$(".dealer-cards .card-2").fadeOut(1000, function(){
+				placeCard("dealer", dealersHand.length, topCard);
+			}).fadeIn(1000);
+	
 		}
 		checkWin();
 		letsBet = false;
@@ -287,6 +297,16 @@ $(document).ready(function(){
 			$(".card").html("-");
 			$(".row-two-buttons").hide("slow");
 			$(".reset-button-wrapper").hide("slow");
+			$(".player-cards .card-1").removeClass("dealt1");
+			$(".player-cards .card-2").removeClass("dealt2");
+			$(".player-cards .card-3").removeClass("dealt3");
+			$(".player-cards .card-4").removeClass("dealt4");
+			$(".player-cards .card-5").removeClass("dealt5");
+			$(".dealer-cards .card-1").removeClass("dealerDealt1");
+			$(".dealer-cards .card-2").removeClass("dealerDealt2");
+			$(".dealer-cards .card-3").removeClass("dealerDealt3");
+			$(".dealer-cards .card-4").removeClass("dealerDealt4");
+			$(".dealer-cards .card-5").removeClass("dealerDealt5");
 		}
 		card = 3;
 		$(".player-number").html("0");
