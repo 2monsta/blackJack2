@@ -5,6 +5,12 @@ body{
 	background: url("../images/background.jpg") no-repeat;
 	background-size: cover;
 }
+h1, p, h3 {
+	color: #FCEDF1;
+}
+.nav-logo{
+	color: #FCEDF1;
+}
 .blackjack{
 	width: 100%;
 	height: 100px;
@@ -26,7 +32,7 @@ body{
 	margin-top: 0;
 }
 .table-front{
-    background-color: green;
+    background-color: #74A3A9;
     height: 500px;
     border-radius: 10% 10% 50% 50%;
     border: 10px solid #dcdcdc;
