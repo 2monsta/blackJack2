@@ -10,7 +10,6 @@ $(document).ready(function(){
 	var dealersHand = [];
 	const freshDeck = createDeck();
 	var theDeck;
-	var letsBet = false;
 	var reset = false;
 	var betAmount = 0;
 	var card = 3;
@@ -21,7 +20,7 @@ $(document).ready(function(){
 	});
 	$('#myModal').modal('show');
 	$('.collapse').collapse("hide");
-	
+	$(".onbutton").prop("disabled", true);
 
 	function createDeck(){
 		var newDeck = [];
@@ -108,26 +107,57 @@ $(document).ready(function(){
 	function bet(){
 		var betValue = Number($(".bet-amount").val());
 		var currentValue = Number($(".player-amount").html());
-		if(!letsBet){
-			// continue;
+
+		if(betValue == 0){
+			$(".black-jack-rule").html("You must enter an amount to bet");
 		}else{
-			if(betValue == 0){
-				$(".black-jack-rule").html("You must enter an amount to bet");
+			if(betValue > currentValue){
+				$(".black-jack-rule").html("You Can't Enter More Than You Have!!");
 			}else{
-				if(betValue > currentValue){
-					$(".black-jack-rule").html("You Can't Enter More Than You Have!!");
-				}else{
-					betAmount += betValue;
-					var myValue = currentValue - betValue;
-					$(".bet-pot").html(betAmount);
-					$(".bet-amount").val("");
-					$(".player-amount").html(myValue);
-				}
+				betAmount += betValue;
+				var myValue = currentValue - betValue;
+				$(".bet-pot").html(betAmount);
+				$(".bet-amount").val("");
+				$(".player-amount").html(myValue);
 			}
 		}
+	}
+	function stand(){
+		placeCard("dealer", 2, dealersHand[1]);
+		var dealerTotal = calculateTotal(dealersHand, "dealer");
+		while(dealerTotal<17){
+			var topCard = theDeck.shift();
+			dealersHand.push(topCard);
+			placeCard("dealer", dealersHand.length, topCard);
+			// dealerTotal = calculateTotal(dealersHand, "dealer");
+		// if(dealerTotal<17){
 
+		
+			// var topCard = theDeck.shift();
+			// dealersHand.push(topCard);
+			// console.log(dealersHand);
+		
+			// $(".dealer-cards .card-2").fadeOut(1000,function(){
+			// 	placeCard("dealer", dealersHand.length -1, dealersHand[1]);
+			// 	console.log(dealersHand.length);
+			// }).fadeIn(1000, function(){
+			// 	$(".dealer-cards .card-3").fadeOut(500,function(){
+			// 		placeCard("dealer", dealersHand.length, topCard);
+			// 	}).fadeIn(1000);
+			// });
+			// setTimeout(function() {
+			// 	dealerTotal = calculateTotal(dealersHand, "dealer");
+			// }, 1000);
+			dealerTotal = calculateTotal(dealersHand, "dealer");
+		// }
+		}
 	}
 	$(".modal-form").submit(()=>{
+		$('#myModal').modal('hide');
+		var valueName = $(".player-name").val();
+		$(".name").html(valueName);
+	});
+	$(".submit-button").click(()=>{
 		$('#myModal').modal('hide');
 		var valueName = $(".player-name").val();
 		$(".name").html(valueName);
@@ -146,21 +176,6 @@ $(document).ready(function(){
 		dealersHand.push(topCard);
 		topCard = theDeck.shift();
 		playersHand.push(topCard);
-
-
-
-		// placeCard("player", 1, "deck");
-		// placeCard("player", 2, "deck");
-		// placeCard("dealer", 2, "deck");
-		// $(".player-cards .card").fadeOut(1000, function(){
-		// 	placeCard("player", 1, playersHand[0]);
-		// 	placeCard("player", 2, playersHand[1]);
-		// 	placeCard("dealer", 1, dealersHand[0]);
-		// });
-		// $(".player-cards .card").fadeIn(2000, function(){
-		// 	placeCard("player", 1, playersHand[0]);
-		// 	placeCard("player", 2, playersHand[1]);
-		// 	placeCard("dealer", 1, dealersHand[0]);
 		reset = true;
 		// });
 		// placeCard("dealer", 1, dealersHand[0]);
@@ -188,7 +203,6 @@ $(document).ready(function(){
 		calculateTotal(dealersHand, "dealer");
 		topCard = theDeck.shift();
 		dealersHand.push(topCard);
-		letsBet = true;
 		$(".hit-button").prop("disabled", false);
 		$(".row-two-buttons").show(100);
 		$(".reset-button-wrapper").show(100);
@@ -222,34 +236,8 @@ $(document).ready(function(){
 
 
 	$(".stand-button").click(()=>{
-		placeCard("dealer", 2, dealersHand[1]);
-		var dealerTotal = calculateTotal(dealersHand, "dealer");
-		while(dealerTotal<17){
-			var topCard = theDeck.shift();
-			dealersHand.push(topCard);
-			placeCard("dealer", dealersHand.length, topCard);
-			// dealerTotal = calculateTotal(dealersHand, "dealer");
-		// if(dealerTotal<17){
-
-		
-			// var topCard = theDeck.shift();
-			// dealersHand.push(topCard);
-			// console.log(dealersHand);
-		
-			// $(".dealer-cards .card-2").fadeOut(1000,function(){
-			// 	placeCard("dealer", dealersHand.length -1, dealersHand[1]);
-			// 	console.log(dealersHand.length);
-			// }).fadeIn(1000, function(){
-			// 	$(".dealer-cards .card-3").fadeOut(500,function(){
-			// 		placeCard("dealer", dealersHand.length, topCard);
-			// 	}).fadeIn(1000);
-			// });
-			// setTimeout(function() {
-			// 	dealerTotal = calculateTotal(dealersHand, "dealer");
-			// }, 1000);
-			dealerTotal = calculateTotal(dealersHand, "dealer");
-		// }
-		}
+		$(".onbutton").prop("disabled", true);
+		stand();
 		checkWin();
 		letsBet = false;
 		$(".hit-button").prop("disabled", true);
@@ -261,16 +249,15 @@ $(document).ready(function(){
 
 	$(".bet-button").click(()=>{
 		bet();
+		$(".onbutton").prop("disabled", false);
 	})
 
 	$(".double-down-button").click(()=>{
 		var currentPot = $(".bet-pot").html();
 		var doubleAmount = Number(currentPot) * 2;
 		var playerAmount = $(".player-amount").html();
-		// $(".bet-pot").html(doubleAmount);
-		// console.log(playerAmount);
-		// var doubleDownMoney = playerAmount - doubleAmount;
-		// $(".player-amount").html(doubleDownMoney);
+		stand();
+
 		if(doubleAmount > playerAmount){
 			$(".black-jack-rule").html("You Cannot Double Down More");
 		}else{
@@ -279,6 +266,10 @@ $(document).ready(function(){
 			var doubleDownMoney = playerAmount - currentPot;
 			$(".player-amount").html(doubleDownMoney);
 		}
+		var topCard = theDeck.shift();
+		playersHand.push(topCard);
+		placeCard("player", 3, topCard);
+		checkWin();
 	});
 
 	$(".surrender-button").click(()=>{
@@ -320,6 +311,7 @@ $(document).ready(function(){
 		$(".player-number").html("0");
 		$(".dealer-number").html("0");
 		betAmount = 0;
+		$(".onbutton").prop("disabled", false);
 	});
 
 });
