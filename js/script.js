@@ -270,6 +270,7 @@ $(document).ready(function(){
 		playersHand.push(topCard);
 		placeCard("player", 3, topCard);
 		checkWin();
+		$(".row-two-buttons").hide(100);
 	});
 
 	$(".surrender-button").click(()=>{
