@@ -171,7 +171,9 @@ img{
 .dealerDealt2{
 	animation: dDealCard2 .6s;
 }
-
+.player-move-card{
+	animation: moveCard 1.6s;
+}
 
 @keyframes dealCard1{
 	0%{transform: translate(350px,-200px)}
@@ -190,5 +192,12 @@ img{
 
 @keyframes dDealCard2{
 	0%{transform: translate(-350px,-200px)}
+	100%{}
+}
+
+
+@keyframes moveCard{
+	0%{}
+	50%{margin-right: 50px;}
 	100%{}
 }

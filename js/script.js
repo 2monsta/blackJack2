@@ -1,7 +1,6 @@
 
-//TODO: work on stand button
-//TODO: work on flip option
-//TODO: work on double down function
+//TODO: split option to count the hands and add div to make sure the hands are accounted for.
+
 
 
 
@@ -78,94 +77,33 @@ $(document).ready(function(){
 		var playersTotalAgain = Number($(".player-amount").html()) + betValue; 
 		if(playersTotal > 21){
 			console.log("you lose");
-			$(".black-jack-rule").html("You Lose!");
+			$(".black-jack-message").html("You Lose!");
 			$(".bet-pot").html("0");
 		}else if(playersTotal == 21 && playersHand.length == 2){
 			console.log("blackjack");
-			$(".black-jack-rule").html("BlackJack");
+			$(".black-jack-message").html("BlackJack");
 			$(".player-amount").html(playersTotalAgain);
 			$(".bet-pot").html("0");
 		}else if(dealersTotal > 21){
 			console.log("dealer loses");
-			$(".black-jack-rule").html("You Win!");
+			$(".black-jack-message").html("You Win!");
 			$(".player-amount").html(playersTotalAgain);
 			$(".bet-pot").html("0");
 		}else if(playersTotal < dealersTotal){
 			console.log("you lose to dealer");
-			$(".black-jack-rule").html("You Lose!");
+			$(".black-jack-message").html("You Lose!");
 			$(".bet-pot").html("0");
 		}else if (playersTotal > dealersTotal){
 			console.log("you win");
-			$(".black-jack-rule").html("You Win!");
+			$(".black-jack-message").html("You Win!");
 			$(".player-amount").html(playersTotalAgain);
 			$(".bet-pot").html("0");
 		}else{
 			console.log("TIE");
-			$(".black-jack-rule").html("Tie, try again!");
+			$(".black-jack-message").html("Tie, try again!");
 		}
 	}
-	function bet(){
-		var betValue = Number($(".bet-amount").val());
-		var currentValue = Number($(".player-amount").html());
-
-		if(betValue == 0){
-			$(".black-jack-rule").html("You must enter an amount to bet");
-		}else{
-			if(betValue > currentValue){
-				$(".black-jack-rule").html("You Can't Enter More Than You Have!!");
-			}else{
-				betAmount += betValue;
-				var myValue = currentValue - betValue;
-				$(".bet-pot").html(betAmount);
-				$(".bet-amount").val("");
-				$(".player-amount").html(myValue);
-			}
-		}
-	}
-	function stand(){
-		placeCard("dealer", 2, dealersHand[1]);
-		var dealerTotal = calculateTotal(dealersHand, "dealer");
-		while(dealerTotal<17){
-			var topCard = theDeck.shift();
-			dealersHand.push(topCard);
-			placeCard("dealer", dealersHand.length, topCard);
-			// dealerTotal = calculateTotal(dealersHand, "dealer");
-		// if(dealerTotal<17){
-
-		
-			// var topCard = theDeck.shift();
-			// dealersHand.push(topCard);
-			// console.log(dealersHand);
-		
-			// $(".dealer-cards .card-2").fadeOut(1000,function(){
-			// 	placeCard("dealer", dealersHand.length -1, dealersHand[1]);
-			// 	console.log(dealersHand.length);
-			// }).fadeIn(1000, function(){
-			// 	$(".dealer-cards .card-3").fadeOut(500,function(){
-			// 		placeCard("dealer", dealersHand.length, topCard);
-			// 	}).fadeIn(1000);
-			// });
-			// setTimeout(function() {
-			// 	dealerTotal = calculateTotal(dealersHand, "dealer");
-			// }, 1000);
-			dealerTotal = calculateTotal(dealersHand, "dealer");
-		// }
-		}
-	}
-	$(".modal-form").submit(()=>{
-		$('#myModal').modal('hide');
-		var valueName = $(".player-name").val();
-		$(".name").html(valueName);
-	});
-	$(".submit-button").click(()=>{
-		$('#myModal').modal('hide');
-		var valueName = $(".player-name").val();
-		$(".name").html(valueName);
-	});
-	$(".rule-book").click(()=>{
-		$('#myModal').modal('show');
-	})
-	$(".deal-button").click((()=>{
+	function deal(){
 		theDeck = freshDeck.slice();
 		theDeck = shuffleDeck(theDeck);
 		playersHand = [];
@@ -177,10 +115,6 @@ $(document).ready(function(){
 		topCard = theDeck.shift();
 		playersHand.push(topCard);
 		reset = true;
-		// });
-		// placeCard("dealer", 1, dealersHand[0]);
-
-		
 		$(".player-cards .card-1").addClass("dealt1");
 		placeCard("player", 1, playersHand[0]);
 		setTimeout(function() {
@@ -203,32 +137,94 @@ $(document).ready(function(){
 		calculateTotal(dealersHand, "dealer");
 		topCard = theDeck.shift();
 		dealersHand.push(topCard);
+	}
+	function bet(){
+		var betValue = Number($(".bet-amount").val());
+		var currentValue = Number($(".player-amount").html());
+
+		if(betValue == 0){
+			$(".black-jack-message").html("You must enter an amount to bet");
+		}else{
+			if(betValue > currentValue){
+				$(".black-jack-message").html("You Can't Enter More Than You Have!!");
+			}else{
+				betAmount += betValue;
+				var myValue = currentValue - betValue;
+				$(".bet-pot").html(betAmount);
+				$(".bet-amount").val("");
+				$(".player-amount").html(myValue);
+			}
+		}
+	}
+	function stand(){
+		placeCard("dealer", 2, dealersHand[1]);
+		var dealerTotal = calculateTotal(dealersHand, "dealer");
+		while(dealerTotal<17){
+			var topCard = theDeck.shift();
+			dealersHand.push(topCard);
+			placeCard("dealer", dealersHand.length, topCard);
+
+			dealerTotal = calculateTotal(dealersHand, "dealer");
+		}
+	}
+	function hit(card){
+		var topCard = theDeck.shift();
+		playersHand.push(topCard);
+		placeCard("player", card, "deck");
+		$(`.player-cards .card-${card}`).fadeOut(1000, function(){
+			placeCard("player", card, topCard);
+		}).fadeIn(1000);
+	}
+
+	function doubleDown(){
+		var currentPot = $(".bet-pot").html();
+		var doubleAmount = Number(currentPot) * 2;
+		var playerAmount = $(".player-amount").html();
+		stand();
+
+		if(doubleAmount > playerAmount){
+			$(".black-jack-message").html("You Cannot Double Down More");
+		}else{
+			$(".bet-pot").html(doubleAmount);
+			// console.log(playerAmount);
+			var doubleDownMoney = playerAmount - currentPot;
+			$(".player-amount").html(doubleDownMoney);
+		}
+		var topCard = theDeck.shift();
+		playersHand.push(topCard);
+		placeCard("player", 3, topCard);
+		checkWin();
+	}
+
+
+
+	$(".modal-form").submit(()=>{
+		$('#myModal').modal('hide');
+		var valueName = $(".player-name").val();
+		$(".name").html(valueName);
+	});
+
+	$(".submit-button").click(()=>{
+		$('#myModal').modal('hide');
+		var valueName = $(".player-name").val();
+		$(".name").html(valueName);
+	});
+	$(".rule-book").click(()=>{
+		$('#myModal').modal('show');
+	})
+	$(".deal-button").click((()=>{
+		deal();
 		$(".hit-button").prop("disabled", false);
 		$(".row-two-buttons").show(100);
 		$(".reset-button-wrapper").show(100);
 
 	}));
-	
-	
 	$(".hit-button").click(()=>{
-		// var topCard = theDeck.shift();
-		// playersHand.push(topCard);
-		// placeCard("player", playersHand.length, "deck");
 		if(card ==3){
-			var topCard = theDeck.shift();
-			playersHand.push(topCard);
-			placeCard("player", playersHand.length, "deck");
-			$(".player-cards .card-3").fadeOut(1000, function(){
-				placeCard("player", playersHand.length, topCard);
-			}).fadeIn(1000);
+			hit(card);
 			card++;
 		}else if(card ==4){
-			var topCard = theDeck.shift();
-			playersHand.push(topCard);
-			placeCard("player", playersHand.length, "deck");
-			$(".player-cards .card-4").fadeOut(1000, function(){
-				placeCard("player", playersHand.length, topCard);
-			}).fadeIn(1000);
+			hit(card);
 		}
 		calculateTotal(playersHand, "player");
 		// console.log(topCard);
@@ -253,25 +249,20 @@ $(document).ready(function(){
 	})
 
 	$(".double-down-button").click(()=>{
-		var currentPot = $(".bet-pot").html();
-		var doubleAmount = Number(currentPot) * 2;
-		var playerAmount = $(".player-amount").html();
-		stand();
-
-		if(doubleAmount > playerAmount){
-			$(".black-jack-rule").html("You Cannot Double Down More");
-		}else{
-			$(".bet-pot").html(doubleAmount);
-			// console.log(playerAmount);
-			var doubleDownMoney = playerAmount - currentPot;
-			$(".player-amount").html(doubleDownMoney);
-		}
-		var topCard = theDeck.shift();
-		playersHand.push(topCard);
-		placeCard("player", 3, topCard);
-		checkWin();
+		doubleDown();
 		$(".row-two-buttons").hide(100);
 	});
+
+
+	$(".split-button").click(()=>{
+		// $(".player-cards .card-2").addClass("player-move-card");
+		var card2 = $(".player-cards .card-2").html();
+		$(".player-cards .card-3").html(card2);
+		$(".player-cards .card-2").html("-");
+		hit(2);
+		hit(4);
+
+	})
 
 	$(".surrender-button").click(()=>{
 		playersHand =[];
@@ -282,7 +273,7 @@ $(document).ready(function(){
 		var halfOfMoney = playerAmount + halfAmount;
 		$(".player-amount").html(halfOfMoney);
 		if(reset){
-			$(".black-jack-rule").html("Dealer Must Hit Under 17");
+			$(".black-jack-message").html("Dealer Must Hit Under 17");
 			$(".card").html("-");
 			$(".row-two-buttons").hide(100);
 			$(".reset-button-wrapper").hide(100);
@@ -299,7 +290,7 @@ $(document).ready(function(){
 		playersHand =[];
 		dealersHand = [];
 		if(reset){
-			$(".black-jack-rule").html("Dealer Must Hit Under 17");
+			$(".black-jack-message").html("Dealer Must Hit Under 17");
 			$(".card").html("-");
 			$(".row-two-buttons").hide(100);
 			$(".reset-button-wrapper").hide(100);
