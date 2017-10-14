@@ -218,6 +218,13 @@ $(document).ready(function(){
 		$(".row-two-buttons").show(100);
 		$(".reset-button-wrapper").show(100);
 
+
+	
+		$(".split-button").prop("disabled", false);
+		$(".deal-button").prop("disabled", false);
+		$(".double-down-button").prop("disabled", false);
+		$(".surrender-button").prop("disabled", false);
+
 	}));
 	$(".hit-button").click(()=>{
 		if(card ==3){
@@ -261,6 +268,11 @@ $(document).ready(function(){
 		$(".player-cards .card-2").html("-");
 		hit(2);
 		hit(4);
+		$(".black-jack-rule").html("Hand One");
+		$(".split-button").prop("disabled", true);
+		$(".deal-button").prop("disabled", true);
+		$(".double-down-button").prop("disabled", true);
+		$(".surrender-button").prop("disabled", true);
 
 	})
 
