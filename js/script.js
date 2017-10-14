@@ -6,6 +6,8 @@
 
 $(document).ready(function(){
 	var playersHand = [];
+	var playersHandSplitOne = [];
+	var playersHandSplitTwo = [];
 	var dealersHand = [];
 	const freshDeck = createDeck();
 	var theDeck;
@@ -110,10 +112,12 @@ $(document).ready(function(){
 		dealersHand = [];
 		var topCard = theDeck.shift();
 		playersHand.push(topCard);
+		playersHandSplitOne.push(topCard);
 		topCard = theDeck.shift();
 		dealersHand.push(topCard);
 		topCard = theDeck.shift();
 		playersHand.push(topCard);
+		playersHandSplitTwo.push(topCard);
 		reset = true;
 		$(".player-cards .card-1").addClass("dealt1");
 		placeCard("player", 1, playersHand[0]);
@@ -170,6 +174,22 @@ $(document).ready(function(){
 	function hit(card){
 		var topCard = theDeck.shift();
 		playersHand.push(topCard);
+		placeCard("player", card, "deck");
+		$(`.player-cards .card-${card}`).fadeOut(1000, function(){
+			placeCard("player", card, topCard);
+		}).fadeIn(1000);
+	}
+	function hitSplitHandOne(card){
+		var topCard = theDeck.shift();
+		playersHandSplitOne.push(topCard);
+		placeCard("player", card, "deck");
+		$(`.player-cards .card-${card}`).fadeOut(1000, function(){
+			placeCard("player", card, topCard);
+		}).fadeIn(1000);
+	}
+	function hitSplitHandTwo(card){
+		var topCard = theDeck.shift();
+		playersHandSplitTwo.push(topCard);
 		placeCard("player", card, "deck");
 		$(`.player-cards .card-${card}`).fadeOut(1000, function(){
 			placeCard("player", card, topCard);
@@ -234,7 +254,7 @@ $(document).ready(function(){
 			hit(card);
 		}
 		calculateTotal(playersHand, "player");
-		// console.log(topCard);
+
 	});
 
 
@@ -266,9 +286,17 @@ $(document).ready(function(){
 		var card2 = $(".player-cards .card-2").html();
 		$(".player-cards .card-3").html(card2);
 		$(".player-cards .card-2").html("-");
-		hit(2);
-		hit(4);
+		hitSplitHandOne(2);
+		hitSplitHandTwo(4);
+		calculateTotal(playersHandSplitOne, "player");
+
+
+
 		$(".black-jack-rule").html("Hand One");
+
+
+
+
 		$(".split-button").prop("disabled", true);
 		$(".deal-button").prop("disabled", true);
 		$(".double-down-button").prop("disabled", true);
@@ -279,6 +307,8 @@ $(document).ready(function(){
 	$(".surrender-button").click(()=>{
 		playersHand =[];
 		dealersHand = [];
+		playersHandSplitOne = [];
+		playersHandSplitTwo = [];
 		var currentPot = $(".bet-pot").html();
 		var halfAmount = Number(currentPot) /2;
 		var playerAmount = Number($(".player-amount").html());
@@ -301,6 +331,8 @@ $(document).ready(function(){
 	$(".reset-button").click(()=>{
 		playersHand =[];
 		dealersHand = [];
+		playersHandSplitOne = [];
+		playersHandSplitTwo = [];
 		if(reset){
 			$(".black-jack-message").html("Dealer Must Hit Under 17");
 			$(".card").html("-");
