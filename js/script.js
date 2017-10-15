@@ -1,6 +1,6 @@
 
 //TODO: split option to count the hands and add div to make sure the hands are accounted for.
-
+//TODO: when you hit stand, move to player two's hand
 
 
 
@@ -14,6 +14,7 @@ $(document).ready(function(){
 	var reset = false;
 	var betAmount = 0;
 	var card = 3;
+	var split = false;
 	$(".row-two-buttons").hide();
 	$(".reset-button-wrapper").hide();
 	$(function () {
@@ -172,12 +173,21 @@ $(document).ready(function(){
 		}
 	}
 	function hit(card){
-		var topCard = theDeck.shift();
-		playersHand.push(topCard);
-		placeCard("player", card, "deck");
-		$(`.player-cards .card-${card}`).fadeOut(1000, function(){
-			placeCard("player", card, topCard);
-		}).fadeIn(1000);
+		if(split){
+			var topCard = theDeck.shift();
+			playersHand.push(topCard);
+			placeCard("player", 6, "deck");
+			$(`.player-cards .card-6`).fadeOut(1000, function(){
+				placeCard("player", 6, topCard);
+			}).fadeIn(1000);
+		}else{
+			var topCard = theDeck.shift();
+			playersHand.push(topCard);
+			placeCard("player", card, "deck");
+			$(`.player-cards .card-${card}`).fadeOut(1000, function(){
+				placeCard("player", card, topCard);
+			}).fadeIn(1000);
+		}
 	}
 	function hitSplitHandOne(card){
 		var topCard = theDeck.shift();
@@ -215,8 +225,51 @@ $(document).ready(function(){
 		placeCard("player", 3, topCard);
 		checkWin();
 	}
-
-
+	function surrender(){
+		playersHand =[];
+		dealersHand = [];
+		playersHandSplitOne = [];
+		playersHandSplitTwo = [];
+		split = false;
+		var currentPot = $(".bet-pot").html();
+		var halfAmount = Number(currentPot) /2;
+		var playerAmount = Number($(".player-amount").html());
+		var halfOfMoney = playerAmount + halfAmount;
+		$(".player-amount").html(halfOfMoney);
+		if(reset){
+			$(".black-jack-message").html("Dealer Must Hit Under 17");
+			$(".card").html("-");
+			$(".row-two-buttons").hide(100);
+			$(".reset-button-wrapper").hide(100);
+		}
+		card = 3;
+		$(".player-number").html("0");
+		$(".dealer-number").html("0");
+		$(".bet-pot").html("0");
+		betAmount =0;
+	}
+	function reset(){
+		playersHand =[];
+		dealersHand = [];
+		playersHandSplitOne = [];
+		playersHandSplitTwo = [];
+		split = false;
+		if(reset){
+			$(".black-jack-message").html("Dealer Must Hit Under 17");
+			$(".card").html("-");
+			$(".row-two-buttons").hide(100);
+			$(".reset-button-wrapper").hide(100);
+			$(".player-cards .card-1").removeClass("dealt1");
+			$(".player-cards .card-2").removeClass("dealt2");
+			$(".dealer-cards .card-1").removeClass("dealerDealt1");
+			$(".dealer-cards .card-2").removeClass("dealerDealt2");
+		}
+		card = 3;
+		$(".player-number").html("0");
+		$(".dealer-number").html("0");
+		betAmount = 0;
+		$(".onbutton").prop("disabled", false);
+	}
 
 	$(".modal-form").submit(()=>{
 		$('#myModal').modal('hide');
@@ -254,7 +307,9 @@ $(document).ready(function(){
 			hit(card);
 		}
 		calculateTotal(playersHand, "player");
-
+		$(".double-down-button").prop("disabled", true);
+		$(".split-button").prop("disabled", true);
+		$(".deal-button").prop("disabled", true);
 	});
 
 
@@ -265,7 +320,6 @@ $(document).ready(function(){
 		letsBet = false;
 		$(".hit-button").prop("disabled", true);
 		$(".row-two-buttons").hide(100);
-		// $(".reset-button-wrapper").show("slow");
 	
 	});
 
@@ -283,6 +337,7 @@ $(document).ready(function(){
 
 	$(".split-button").click(()=>{
 		// $(".player-cards .card-2").addClass("player-move-card");
+		split = true;
 		var card2 = $(".player-cards .card-2").html();
 		$(".player-cards .card-3").html(card2);
 		$(".player-cards .card-2").html("-");
@@ -291,8 +346,7 @@ $(document).ready(function(){
 		calculateTotal(playersHandSplitOne, "player");
 
 
-
-		$(".black-jack-rule").html("Hand One");
+		$(".black-jack-message").html("Hand One's Turn");
 
 
 
@@ -302,52 +356,17 @@ $(document).ready(function(){
 		$(".double-down-button").prop("disabled", true);
 		$(".surrender-button").prop("disabled", true);
 
+
 	})
 
 	$(".surrender-button").click(()=>{
-		playersHand =[];
-		dealersHand = [];
-		playersHandSplitOne = [];
-		playersHandSplitTwo = [];
-		var currentPot = $(".bet-pot").html();
-		var halfAmount = Number(currentPot) /2;
-		var playerAmount = Number($(".player-amount").html());
-		var halfOfMoney = playerAmount + halfAmount;
-		$(".player-amount").html(halfOfMoney);
-		if(reset){
-			$(".black-jack-message").html("Dealer Must Hit Under 17");
-			$(".card").html("-");
-			$(".row-two-buttons").hide(100);
-			$(".reset-button-wrapper").hide(100);
-		}
-		card = 3;
-		$(".player-number").html("0");
-		$(".dealer-number").html("0");
-		$(".bet-pot").html("0");
-		betAmount =0;
+		surrender();
+		
 	});
 
 	
 	$(".reset-button").click(()=>{
-		playersHand =[];
-		dealersHand = [];
-		playersHandSplitOne = [];
-		playersHandSplitTwo = [];
-		if(reset){
-			$(".black-jack-message").html("Dealer Must Hit Under 17");
-			$(".card").html("-");
-			$(".row-two-buttons").hide(100);
-			$(".reset-button-wrapper").hide(100);
-			$(".player-cards .card-1").removeClass("dealt1");
-			$(".player-cards .card-2").removeClass("dealt2");
-			$(".dealer-cards .card-1").removeClass("dealerDealt1");
-			$(".dealer-cards .card-2").removeClass("dealerDealt2");
-		}
-		card = 3;
-		$(".player-number").html("0");
-		$(".dealer-number").html("0");
-		betAmount = 0;
-		$(".onbutton").prop("disabled", false);
+		reset();
 	});
 
 });
