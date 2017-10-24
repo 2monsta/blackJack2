@@ -1,6 +1,5 @@
 
 //TODO: split option to count the hands and add div to make sure the hands are accounted for.
-//TODO: when you hit stand, move to player two's hand
 
 
 
@@ -358,8 +357,7 @@ $(document).ready(function(){
 			calculateTotal(playersHandSplitTwo, "player");
 		}else if(split && splitHandTwo){
 			// check vs hand 1 and check vs hand 2
-		}
-		else{
+		}else{
 			$(".onbutton").prop("disabled", true);
 			stand();
 			checkWin();
@@ -367,8 +365,6 @@ $(document).ready(function(){
 			$(".hit-button").prop("disabled", true);
 			$(".row-two-buttons").hide(100);
 		}
-		
-	
 	});
 
 
