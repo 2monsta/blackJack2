@@ -10,7 +10,7 @@ $(document).ready(function(){
 	var dealersHand = [];
 	const freshDeck = createDeck();
 	var theDeck;
-	var reset = false;
+	var resetBool = false;
 	var betAmount = 0;
 	var card = 3;
 	var split = false;
@@ -120,7 +120,7 @@ $(document).ready(function(){
 		topCard = theDeck.shift();
 		playersHand.push(topCard);
 		playersHandSplitTwo.push(topCard);
-		reset = true;
+		resetBool = true;
 		$(".player-cards .card-1").addClass("dealt1");
 		placeCard("player", 1, playersHand[0]);
 		setTimeout(function() {
@@ -245,7 +245,7 @@ $(document).ready(function(){
 		var playerAmount = Number($(".player-amount").html());
 		var halfOfMoney = playerAmount + halfAmount;
 		$(".player-amount").html(halfOfMoney);
-		if(reset){
+		if(resetBool){
 			$(".black-jack-message").html("Dealer Must Hit Under 17");
 			$(".card").html("-");
 			$(".row-two-buttons").hide(100);
@@ -265,7 +265,7 @@ $(document).ready(function(){
 		split = false;
 		splitHandOne = false;
 		splitHandTwo = false;
-		if(reset){
+		if(resetBool){
 			$(".black-jack-message").html("Dealer Must Hit Under 17");
 			$(".card").html("-");
 			$(".row-two-buttons").hide(100);
